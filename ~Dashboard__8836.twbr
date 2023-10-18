@@ -332,6 +332,12 @@
         </metadata-records>
       </connection>
       <aliases enabled='yes' />
+      <column datatype='integer' name='[Bedrooms (bin)]' role='dimension' type='quantitative'>
+        <calculation class='bin' decimals='0' formula='[bedrooms]' peg='0' size='1.226' />
+      </column>
+      <column datatype='integer' name='[Price (bin)]' role='dimension' type='quantitative'>
+        <calculation class='bin' decimals='4' formula='[price]' peg='0' size='31258' />
+      </column>
       <_.fcp.ObjectModelTableType.true...column caption='Data' datatype='table' name='[__tableau_internal_object_id__].[Data_B3B86B1A55AA4BD88A55E9C48F4FF6D2]' role='measure' type='quantitative' />
       <column caption='Bathrooms' datatype='real' name='[bathrooms]' role='measure' type='quantitative' />
       <column caption='Bedrooms' datatype='integer' name='[bedrooms]' role='measure' type='quantitative' />
@@ -389,6 +395,91 @@
     <mapsource name='Tableau' />
   </mapsources>
   <worksheets>
+    <worksheet name='HistogramHousePrice'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Distribution of High Prices</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Data (HouseData)' name='federated.1d2l4cj16mdfor11v5o7913fjcwu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1d2l4cj16mdfor11v5o7913fjcwu'>
+            <column datatype='integer' name='[Price (bin)]' role='dimension' type='quantitative'>
+              <calculation class='bin' decimals='4' formula='[price]' peg='0' size='31258' />
+            </column>
+            <column-instance column='[price]' derivation='Count' name='[cnt:price:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Price (bin)]' derivation='None' name='[none:Price (bin):qk]' pivot='key' type='quantitative' />
+            <column caption='Price' datatype='integer' name='[price]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1d2l4cj16mdfor11v5o7913fjcwu].[cnt:price:qk]' scope='rows' value='Frecuency' />
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+            <format attr='tick-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='color' value='#4e79a7' />
+          </style-rule>
+          <style-rule element='dropline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <mark-sizing custom-mark-size-in-axis-units='1.0' mark-alignment='mark-alignment-left' mark-sizing-setting='marks-scaling-on' use-custom-mark-size='false' />
+            <customized-tooltip>
+              <formatted-text>
+                <run fontcolor='#787878'>Price (bin):&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1d2l4cj16mdfor11v5o7913fjcwu].[none:Price (bin):qk]>]]></run>
+                <run>Æ&#10;</run>
+                <run fontcolor='#787878'>Frecuency:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.1d2l4cj16mdfor11v5o7913fjcwu].[cnt:price:qk]>]]></run>
+              </formatted-text>
+            </customized-tooltip>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-color' value='#abe8c6' />
+              </style-rule>
+              <style-rule element='trendline'>
+                <format attr='stroke-size' value='0' />
+                <format attr='line-visibility' value='off' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[cnt:price:qk]</rows>
+        <cols>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[none:Price (bin):qk]</cols>
+        <show-full-range>
+          <column>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[Price (bin)]</column>
+        </show-full-range>
+      </table>
+      <simple-id uuid='{1C6A6E7C-7239-409D-AEFC-223F6ACBD4D5}' />
+    </worksheet>
     <worksheet name='LineChart'>
       <layout-options>
         <title>
@@ -532,10 +623,20 @@
       </table>
       <simple-id uuid='{09809063-9403-44AD-9AF2-39BD3C08B177}' />
     </worksheet>
-    <worksheet name='Sheet 3'>
+    <worksheet name='Sheet 4'>
       <table>
         <view>
-          <datasources />
+          <datasources>
+            <datasource caption='Data (HouseData)' name='federated.1d2l4cj16mdfor11v5o7913fjcwu' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1d2l4cj16mdfor11v5o7913fjcwu'>
+            <column datatype='integer' name='[Bedrooms (bin)]' role='dimension' type='quantitative'>
+              <calculation class='bin' decimals='0' formula='[bedrooms]' peg='0' size='1.226' />
+            </column>
+            <column caption='Bedrooms' datatype='integer' name='[bedrooms]' role='measure' type='quantitative' />
+            <column-instance column='[bedrooms]' derivation='Count' name='[cnt:bedrooms:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Bedrooms (bin)]' derivation='None' name='[none:Bedrooms (bin):qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
           <aggregation value='true' />
         </view>
         <style />
@@ -545,12 +646,16 @@
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
+            <mark-sizing custom-mark-size-in-axis-units='1.0' mark-alignment='mark-alignment-left' mark-sizing-setting='marks-scaling-on' use-custom-mark-size='false' />
           </pane>
         </panes>
-        <rows />
-        <cols />
+        <rows>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[cnt:bedrooms:qk]</rows>
+        <cols>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[none:Bedrooms (bin):qk]</cols>
+        <show-full-range>
+          <column>[federated.1d2l4cj16mdfor11v5o7913fjcwu].[Bedrooms (bin)]</column>
+        </show-full-range>
       </table>
-      <simple-id uuid='{1C6A6E7C-7239-409D-AEFC-223F6ACBD4D5}' />
+      <simple-id uuid='{AC56E674-5E3F-4830-82B7-576527113AB0}' />
     </worksheet>
   </worksheets>
   <windows source-height='30'>
@@ -580,7 +685,7 @@
       </viewpoint>
       <simple-id uuid='{E6090219-0551-4BC7-8890-7B49EB580DF6}' />
     </window>
-    <window class='worksheet' maximized='true' name='Map'>
+    <window class='worksheet' name='Map'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -603,7 +708,7 @@
       </cards>
       <simple-id uuid='{5CC4A934-1362-4DC3-8DFC-2EC8BAA60606}' />
     </window>
-    <window class='worksheet' name='Sheet 3'>
+    <window class='worksheet' name='HistogramHousePrice'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -625,6 +730,29 @@
         </edge>
       </cards>
       <simple-id uuid='{D1D24289-23A5-4F8F-BCFB-02F1ED521F47}' />
+    </window>
+    <window class='worksheet' maximized='true' name='Sheet 4'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{0E910C72-5752-487B-8B60-D42C201AA430}' />
     </window>
   </windows>
 </workbook>
